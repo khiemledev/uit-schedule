@@ -1,6 +1,6 @@
 <template>
   <div id="classes-table">
-    <PopupDialog @close="closeDialog" v-if="dialog.show">
+    <PopupDialog @close="closeDialog" v-show="dialog.show">
       <template #body>{{ dialog.body }}</template>
     </PopupDialog>
     <div id="actions-bar">
@@ -21,7 +21,7 @@
         {{ showFilter ? "Ẩn" : "Hiện" }} bộ lọc
       </button>
     </div>
-    <div id="filter" v-show="showFilter">
+    <div id="filter" v-if="showFilter">
       <div id="filters">
         <span v-for="e in mapper" :key="e.field" class="cb-group">
           <input
@@ -56,13 +56,72 @@
           <td>
             <input type="checkbox" :value="e.MaLop" v-model="selectedClasses" />
           </td>
-          <td
+          <!-- <td
             v-for="e2 in mapper"
-            v-show="displayFields.includes(e2.field)"
+            v-if="displayFields.includes(e2.field)"
             :key="e2.field"
             :class="{ 'text-center': e2.center }"
           >
             {{ e[e2.field] }}
+          </td> -->
+          <td v-if="displayFields.includes('STT')" class="text-center">
+            {{ e.STT }}
+          </td>
+          <td v-if="displayFields.includes('MaMH')">{{ e.MaMH }}</td>
+          <td v-if="displayFields.includes('MaLop')">{{ e.MaLop }}</td>
+          <td v-if="displayFields.includes('TenMH')">{{ e.TenMH }}</td>
+          <td v-if="displayFields.includes('MaGV')">{{ e.MaGV }}</td>
+          <td v-if="displayFields.includes('TenGV')">{{ e.TenGV }}</td>
+          <td v-if="displayFields.includes('SiSo')" class="text-center">
+            {{ e.SiSo }}
+          </td>
+          <td v-if="displayFields.includes('SoTC')" class="text-center">
+            {{ e.SoTC }}
+          </td>
+          <td v-if="displayFields.includes('TH')" class="text-center">
+            {{ e.TH }}
+          </td>
+          <td v-if="displayFields.includes('HTGD')" class="text-center">
+            {{ e.HTGD }}
+          </td>
+          <td v-if="displayFields.includes('Thu')" class="text-center">
+            {{ e.Thu }}
+          </td>
+          <td v-if="displayFields.includes('Tiet')" class="text-center">
+            {{ e.Tiet }}
+          </td>
+          <td v-if="displayFields.includes('CachTuan')" class="text-center">
+            {{ e.CachTuan }}
+          </td>
+          <td v-if="displayFields.includes('PhongHoc')" class="text-center">
+            {{ e.PhongHoc }}
+          </td>
+          <td v-if="displayFields.includes('KhoaHoc')" class="text-center">
+            {{ e.KhoaHoc }}
+          </td>
+          <td v-if="displayFields.includes('HocKy')" class="text-center">
+            {{ e.HocKy }}
+          </td>
+          <td v-if="displayFields.includes('NamHoc')" class="text-center">
+            {{ e.NamHoc }}
+          </td>
+          <td v-if="displayFields.includes('HeDT')" class="text-center">
+            {{ e.HeDT }}
+          </td>
+          <td v-if="displayFields.includes('KhoaQL')" class="text-center">
+            {{ e.KhoaQL }}
+          </td>
+          <td v-if="displayFields.includes('NBD')" class="text-center">
+            {{ e.NBD }}
+          </td>
+          <td v-if="displayFields.includes('NKT')" class="text-center">
+            {{ e.NKT }}
+          </td>
+          <td v-if="displayFields.includes('GhiChu')" class="text-center">
+            {{ e.GhiChu }}
+          </td>
+          <td v-if="displayFields.includes('Lang')" class="text-center">
+            {{ e.Lang }}
           </td>
         </tr>
       </table>
