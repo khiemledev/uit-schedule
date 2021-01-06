@@ -1,0 +1,112 @@
+[
+  {
+    "field": "STT",
+    "name": "STT",
+    "center": true
+  },
+  {
+    "field": "MaMH",
+    "name": "Mã MH"
+  },
+  {
+    "field": "MaLop",
+    "name": "Mã lớp"
+  },
+  {
+    "field": "TenMH",
+    "name": "Tên MH"
+  },
+  {
+    "field": "MaGV",
+    "name": "Mã GV"
+  },
+  {
+    "field": "TenGV",
+    "name": "Tên GV"
+  },
+  {
+    "field": "SiSo",
+    "name": "Sĩ số",
+    "center": true
+  },
+  {
+    "field": "SoTC",
+    "name": "Số TC",
+    "center": true
+  },
+  {
+    "field": "TH",
+    "name": "Thực hành",
+    "center": true
+  },
+  {
+    "field": "HTGD",
+    "name": "HTGD",
+    "center": true
+  },
+  {
+    "field": "Thu",
+    "name": "Thứ",
+    "center": true
+  },
+  {
+    "field": "Tiet",
+    "name": "Tiết",
+    "center": true
+  },
+  {
+    "field": "CachTuan",
+    "name": "Cách tuần",
+    "center": true
+  },
+  {
+    "field": "PhongHoc",
+    "name": "Phòng học",
+    "center": true
+  },
+  {
+    "field": "KhoaHoc",
+    "name": "Khóa học",
+    "center": true
+  },
+  {
+    "field": "HocKy",
+    "name": "Học kỳ",
+    "center": true
+  },
+  {
+    "field": "NamHoc",
+    "name": "Năm học",
+    "center": true
+  },
+  {
+    "field": "HeDT",
+    "name": "Hệ ĐT",
+    "center": true
+  },
+  {
+    "field": "KhoaQL",
+    "name": "Khoa QL",
+    "center": true
+  },
+  {
+    "field": "NBD",
+    "name": "Bắt đầu",
+    "center": true
+  },
+  {
+    "field": "NKT",
+    "name": "Kết thúc",
+    "center": true
+  },
+  {
+    "field": "GhiChu",
+    "name": "Ghi chú",
+    "center": true
+  },
+  {
+    "field": "Lang",
+    "name": "Ngôn ngữ",
+    "center": true
+  }
+]
