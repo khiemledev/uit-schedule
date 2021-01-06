@@ -153,7 +153,7 @@ export default {
       displayFields: initFields,
       mapper: mapper,
       showFilter: false,
-      classes: this.$store.state.classes,
+      classes: [],
       selectedClasses: [],
       dialog: {
         show: false,
@@ -162,7 +162,18 @@ export default {
       },
     };
   },
+  computed: {
+    getClasses() {
+      return this.$store.state.classes;
+    },
+    getSelectedClasses() {
+      return this.$store.state.selectedClasses;
+    },
+  },
   watch: {
+    getSelectedClasses(newVal) {
+      this.selectedClasses = newVal;
+    },
     selectedClasses(newVal) {
       this.$store.dispatch("selectClasses", newVal).then((res) => {
         if (res) {
@@ -231,6 +242,10 @@ export default {
           this.safeToStr(c.Lang).includes(qr)
       );
     },
+  },
+  mounted() {
+    this.classes = this.getClasses;
+    this.selectedClasses = this.getSelectedClasses;
   },
 };
 </script>

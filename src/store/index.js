@@ -59,6 +59,13 @@ export default createStore({
 				return;
 			}
 			return { conflictedClasses };
+		},
+		unselectClass({ state, commit }, payload) {
+			const { MaLop } = payload;
+			commit(
+				"selectClasses",
+				state.selectedClasses.filter((c) => c != MaLop)
+			);
 		}
 	},
 	modules: {}
