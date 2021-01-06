@@ -6,8 +6,7 @@
     <div id="actions-bar">
       <div id="search-form">
         <input
-          v-model="enteredSearch"
-          @keydown.enter="search"
+          @keyup.enter="search"
           type="search"
           name="search"
           placeholder="Tên môn, tên GV, thứ, tiết..."
@@ -96,7 +95,6 @@ export default {
       mapper: mapper,
       showFilter: false,
       classes: this.$store.state.classes,
-      enteredSearch: "",
       selectedClasses: [],
       dialog: {
         show: false,
@@ -106,10 +104,6 @@ export default {
     };
   },
   watch: {
-    enteredSearch(newVal) {
-      if (newVal == "" && this.classes.length != this.$store.state.classes)
-        this.classes = this.$store.state.classes;
-    },
     selectedClasses(newVal) {
       this.$store.dispatch("selectClasses", newVal).then((res) => {
         if (res) {
@@ -145,9 +139,12 @@ export default {
           return (x + "").toLowerCase();
       }
     },
-    search() {
-      if (this.enteredSearch == "") return;
-      let qr = this.enteredSearch.toLowerCase();
+    search(event) {
+      let qr = event.target.value.trim().toLowerCase();
+      if (qr == "") {
+        this.classes = this.$store.state.classes;
+        return;
+      }
       // Search for every field that includes the query
       this.classes = this.$store.state.classes.filter(
         (c) =>
