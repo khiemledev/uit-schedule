@@ -11,7 +11,7 @@
           <th>Thứ sáu</th>
           <th>Thứ bảy</th>
         </tr>
-        <tr v-for="(e, i) in subjects" :key="i">
+        <tr v-for="(e, i) in classes" :key="i">
           <td class="text-center">{{ i + 1 }}</td>
           <td
             v-for="(e2, i2) in e"
@@ -51,10 +51,10 @@
         </tr>
       </table>
     </div>
-    <div id="unknown-subjects" v-if="unknownSubjects.length > 0">
+    <div id="unknown-subjects" v-if="unknownClasses.length > 0">
       <p>Danh sách các lớp chưa sắp xếp lịch dự kiến:</p>
       <ul>
-        <li v-for="e in unknownSubjects" :key="e.MaLop">
+        <li v-for="e in unknownClasses" :key="e.MaLop">
           <span class="font-bold">{{ e.MaLop }}</span> -
           <span>{{ e.TenMH }}</span> -
           <span class="font-bold">{{ e.TenGV }}</span>
@@ -69,8 +69,8 @@ export default {
   name: "ScheduleTable",
   data() {
     return {
-      subjects: [],
-      unknownSubjects: [],
+      classes: [],
+      unknownClasses: [],
     };
   },
   watch: {
@@ -88,17 +88,17 @@ export default {
       this.$store.dispatch("unselectClass", { MaLop: maLop });
     },
     preprocessTKB() {
-      let subjects = this.getClassesDetail;
+      let classes = this.getClassesDetail;
 
-      // Fill subject in 2d array
+      // Fill class in 2d array
       let arr = [];
       for (let i = 1; i <= 10; i++) {
-        // Get subject by Tiet == i [1 -> 10]
-        let t = subjects.filter(
+        // Get class by Tiet == i [1 -> 10]
+        let t = classes.filter(
           (val) => val.Tiet.includes(i) || (i == 10 && val.Tiet.includes(0))
         );
         let h = [];
-        // Get subject by Thu == j [2 -> 7]
+        // Get class by Thu == j [2 -> 7]
         for (let j = 2; j <= 7; j++) {
           let k = t.filter((val) => val.Thu == j);
           if (k.length == 0) h.push({});
@@ -110,7 +110,7 @@ export default {
         arr.push(h);
       }
 
-      // Remove duplicated subject
+      // Remove duplicated class
       for (let j = 2 - 2; j <= 7 - 2; j++) {
         for (let i = 1 - 1; i <= 10 - 1; i++) {
           if (Object.keys(arr[i][j]).length > 0) {
@@ -124,10 +124,10 @@ export default {
           }
         }
       }
-      this.subjects = arr;
+      this.classes = arr;
 
       // Get unknown subjects
-      this.unknownSubjects = subjects.filter(
+      this.unknownClasses = classes.filter(
         (val) => val.Thu == "*" || val.Tiet == "*"
       );
     },
