@@ -30,10 +30,9 @@
               v-if="Object.keys(e2).length != 0 ? true : false"
               @click="unselectClass(e2.MaLop)"
               id="unselect-class"
-              title="Xóa lớp này"
+              title="Bỏ chọn lớp này"
             >
               <svg
-                class="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -51,13 +50,28 @@
         </tr>
       </table>
     </div>
-    <div id="unknown-subjects" v-if="unknownClasses.length > 0">
+    <div id="unknown-classes" v-if="unknownClasses.length > 0">
       <p>Danh sách các lớp chưa sắp xếp lịch dự kiến:</p>
       <ul>
         <li v-for="e in unknownClasses" :key="e.MaLop">
           <span class="font-bold">{{ e.MaLop }}</span> -
           <span>{{ e.TenMH }}</span> -
           <span class="font-bold">{{ e.TenGV }}</span>
+          <div id="unselect-unknown-class" @click="unselectClass(e.MaLop)">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </div>
         </li>
       </ul>
     </div>
@@ -144,11 +158,11 @@ export default {
 }
 
 #table-wrapper {
-  @apply overflow-auto border border-gray-500;
+  @apply overflow-auto border border-gray-500 p-0;
 }
 
 #schedule-table {
-  @apply w-full mb-3;
+  @apply w-full;
 }
 
 #schedule-table th,
@@ -170,15 +184,23 @@ export default {
   @apply block;
 }
 
-#unknown-subjects p {
+#unknown-classes {
+  @apply mt-3;
+}
+
+#unknown-classes p {
   @apply font-semibold text-lg;
 }
 
-#unknown-subjects li {
-  @apply border border-gray-400 rounded p-2 my-1;
+#unknown-classes li {
+  @apply border border-gray-400 rounded p-2 my-1 relative pr-3 lg:pr-0;
 }
 
 #unselect-class {
-  @apply absolute top-1 right-1 cursor-pointer;
+  @apply w-6 h-6 absolute top-1 right-1 cursor-pointer;
+}
+
+#unselect-unknown-class {
+  @apply w-6 h-6 absolute right-2 top-2 cursor-pointer;
 }
 </style>
