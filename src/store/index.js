@@ -19,53 +19,40 @@ export default createStore({
 	},
 	getters: {},
 	mutations: {
-		selectClasses(state, classes) {
-			state.selectedClasses = classes;
-			// Get detail of selected classes
-			const classesDetail = state.classes.filter((c) =>
-				classes.includes(c.MaLop)
+		addClass(state, _class) {
+			state.selectedClasses = [...state.selectedClasses, _class];
+			let classDetail = state.classes.find((c) => c.MaLop == _class);
+			state.selectedClassesDetail = [
+				...state.selectedClassesDetail,
+				classDetail
+			];
+		},
+		removeClass(state, _class) {
+			state.selectedClasses = state.selectedClasses.filter((c) => c != _class);
+			state.selectedClassesDetail = state.selectedClassesDetail.filter(
+				(c) => c.MaLop != _class
 			);
-			state.selectedClassesDetail = classesDetail;
 		}
 	},
 	actions: {
-		selectClasses({ state, commit }, classes) {
-			// Non-check confict if selectedClasses is empty
+		addClass({ state, commit }, _class) {
+			if (!_class || _class == "") return;
+			let classDetail = state.classes.find((c) => c.MaLop == _class);
+			if (!classDetail) {
+				return { classDoesNotExist: _class };
+			}
 			if (state.selectedClasses.length == 0) {
-				commit("selectClasses", classes);
+				commit("addClass", _class);
 				return;
 			}
-			// This case is unselect a class
-			if (classes.length <= state.selectedClasses.length) {
-				commit("selectClasses", classes);
-				return;
+			let conflictedClasses = state.selectedClassesDetail.filter(
+				(c) => c.Thu == classDetail.Thu && hasCommon(c.Tiet, classDetail.Tiet)
+			);
+			if (conflictedClasses.length > 0) {
+				return { classWasConflicted: _class };
 			}
-			// A new class was selected
-			// Get the last selected class and its detail
-			const lastClass = classes.filter(
-				(c) => !state.selectedClasses.includes(c)
-			)[0];
-			const lastClassDetail = state.classes.find((c) => c.MaLop == lastClass);
 
-			// Check if conflict with selected classes
-			const conflictedClasses = state.selectedClassesDetail.filter(
-				(c) =>
-					c.Thu == lastClassDetail.Thu &&
-					hasCommon(c.Tiet, lastClassDetail.Tiet)
-			);
-			// No conflict
-			if (conflictedClasses.length == 0) {
-				commit("selectClasses", classes);
-				return;
-			}
-			return { conflictedClasses };
-		},
-		unselectClass({ state, commit }, payload) {
-			const { MaLop } = payload;
-			commit(
-				"selectClasses",
-				state.selectedClasses.filter((c) => c != MaLop)
-			);
+			commit("addClass", _class);
 		}
 	},
 	modules: {}

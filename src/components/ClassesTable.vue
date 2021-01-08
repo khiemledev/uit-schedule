@@ -175,14 +175,31 @@ export default {
       this.selectedClasses = newVal;
     },
     selectedClasses(newVal) {
-      this.$store.dispatch("selectClasses", newVal).then((res) => {
-        if (res) {
-          const { conflictedClasses } = res;
-          var classes = conflictedClasses.map((c) => c.MaLop).join(", ");
-          this.openDialog(`Mã lớp ${classes} bị trùng!`);
-          this.selectedClasses.splice(this.selectedClasses.length - 1, 1);
-        }
-      });
+      // this.$store.dispatch("selectClasses", newVal).then((res) => {
+      //   if (res) {
+      //     const { conflictedClasses } = res;
+      //     var classes = conflictedClasses.map((c) => c.MaLop).join(", ");
+      //     this.openDialog(`Mã lớp ${classes} bị trùng!`);
+      //     this.selectedClasses.splice(this.selectedClasses.length - 1, 1);
+      //   }
+      // });
+      let newClass = newVal.find((c) => !this.getSelectedClasses.includes(c));
+      let removedClass = this.getSelectedClasses.find(
+        (c) => !newVal.includes(c)
+      );
+      if (newClass) {
+        this.$store.dispatch("addClass", newClass).then((res) => {
+          if (res) {
+            const { classWasConflicted } = res;
+            if (classWasConflicted) {
+              this.openDialog(`Mã lớp ${classWasConflicted} bị trùng`);
+              this.selectedClasses = this.getSelectedClasses;
+            }
+          }
+        });
+      } else if (removedClass) {
+        this.$store.commit("removeClass", removedClass);
+      }
     },
   },
   methods: {

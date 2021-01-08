@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     unselectClass(maLop) {
-      this.$store.dispatch("unselectClass", { MaLop: maLop });
+      this.$store.commit("removeClass", maLop);
     },
     preprocessTKB() {
       let classes = this.getClassesDetail;
