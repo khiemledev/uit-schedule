@@ -15,7 +15,23 @@ export default createStore({
 		selectedClasses: [],
 		selectedClassesDetail: []
 	},
-	getters: {},
+	getters: {
+		soTC(state) {
+			return state.selectedClassesDetail
+				.map((c) => c.SoTC)
+				.reduce((a, b) => a + b, 0);
+		},
+		tenGV(state) {
+			return state.selectedClassesDetail
+				.map((c) => c.TenGV)
+				.filter((v, i, self) => v && self.indexOf(v) == i);
+		},
+		tenMH(state) {
+			return state.selectedClassesDetail
+				.map((c) => c.TenMH)
+				.filter((v, i, self) => v && self.indexOf(v) == i);
+		}
+	},
 	mutations: {
 		addClass(state, _class) {
 			state.selectedClasses = [...state.selectedClasses, _class];

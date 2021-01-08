@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <Summary />
     <ScheduleTable />
     <SelectedClassesCode />
     <ClassesTable />
@@ -10,10 +11,16 @@
 import ClassesTable from "../components/ClassesTable";
 import ScheduleTable from "../components/ScheduleTable";
 import SelectedClassesCode from "../components/SelectedClassesCode";
+import Summary from "../components/Summary";
 
 export default {
   name: "Home",
-  components: { ClassesTable, ScheduleTable, SelectedClassesCode },
+  components: {
+    ClassesTable,
+    ScheduleTable,
+    SelectedClassesCode,
+    Summary,
+  },
 };
 </script>
 
