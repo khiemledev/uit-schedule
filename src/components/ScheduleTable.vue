@@ -177,7 +177,7 @@ export default {
 }
 
 .active {
-  @apply pt-6 lg:pt-0 relative bg-gray-700 text-white text-center !important;
+  @apply pt-7 relative bg-gray-700 text-white text-center !important;
 }
 
 .active span {

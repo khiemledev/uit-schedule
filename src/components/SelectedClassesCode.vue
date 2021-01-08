@@ -4,7 +4,10 @@
       id="classes-code"
       rows="10"
       :value="selectedClassesStr"
+      @change="handleChange"
     ></textarea>
+    <p v-if="conflictMsg != ''" class="error-msg">{{ conflictMsg }}</p>
+    <p v-if="nonExistMsg != ''" class="error-msg">{{ nonExistMsg }}</p>
   </div>
 </template>
 
@@ -26,8 +29,40 @@ export default {
   },
   data() {
     return {
+      conflictMsg: "",
+      nonExistMsg: "",
       selectedClasses: [],
+      dialog: {
+        title: "Alert",
+        body: "",
+        show: false,
+      },
     };
+  },
+  methods: {
+    handleChange(event) {
+      this.conflictMsg = "";
+      this.nonExistMsg = "";
+      let classes = event.target.value
+        .trim()
+        .split("\n")
+        .map((e) => e.trim());
+      this.$store.dispatch("addClasses", classes).then((res) => {
+        if (res) {
+          const { conflictedClasses, nonExistClasses } = res;
+          if (conflictedClasses && conflictedClasses.length > 0) {
+            this.conflictMsg = `Mã lớp ${conflictedClasses.join(
+              ", "
+            )} bị trùng`;
+          }
+          if (nonExistClasses && nonExistClasses.length > 0) {
+            this.nonExistMsg = `Mã lớp ${nonExistClasses.join(
+              ", "
+            )} không tồn tại`;
+          }
+        }
+      });
+    },
   },
   mounted() {
     this.selectedClasses = this.getSelectedClasses;
@@ -42,5 +77,9 @@ export default {
 
 #classes-code {
   @apply border border-gray-500 p-2 w-full;
+}
+
+.error-msg {
+  @apply text-lg text-red-500;
 }
 </style>

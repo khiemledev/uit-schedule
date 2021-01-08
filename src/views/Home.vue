@@ -19,6 +19,6 @@ export default {
 
 <style scoped>
 #home {
-  @apply container w-full p-4 space-y-4;
+  @apply container w-full p-4 space-y-4 mx-auto;
 }
 </style>

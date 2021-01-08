@@ -32,6 +32,10 @@ export default createStore({
 			state.selectedClassesDetail = state.selectedClassesDetail.filter(
 				(c) => c.MaLop != _class
 			);
+		},
+		clearClasses(state) {
+			state.selectedClasses = [];
+			state.selectedClassesDetail = [];
 		}
 	},
 	actions: {
@@ -46,13 +50,51 @@ export default createStore({
 				return;
 			}
 			let conflictedClasses = state.selectedClassesDetail.filter(
-				(c) => c.Thu == classDetail.Thu && hasCommon(c.Tiet, classDetail.Tiet)
+				(c) =>
+					c.Thu != "*" &&
+					classDetail.Thu != "*" &&
+					c.Tiet != "*" &&
+					classDetail.Tiet != "*" &&
+					c.Thu == classDetail.Thu &&
+					hasCommon(c.Tiet, classDetail.Tiet)
 			);
 			if (conflictedClasses.length > 0) {
 				return { classWasConflicted: _class };
 			}
 
 			commit("addClass", _class);
+		},
+		addClasses({ state, dispatch, commit }, classes) {
+			if (classes.length == 0) {
+				commit("clearClasses");
+				return;
+			}
+
+			let newClasses = classes.filter(
+				(c) => !state.selectedClasses.includes(c)
+			);
+			let removeClasses = state.selectedClasses.filter(
+				(c) => !classes.includes(c)
+			);
+
+			removeClasses.forEach((c) => {
+				commit("removeClass", c);
+			});
+
+			let conflictedClasses = [];
+			let nonExistClasses = [];
+
+			newClasses.forEach((c) => {
+				dispatch("addClass", c).then((res) => {
+					if (res) {
+						const { classDoesNotExist, classWasConflicted } = res;
+						if (classDoesNotExist) nonExistClasses.push(classDoesNotExist);
+						else if (classWasConflicted)
+							conflictedClasses.push(classWasConflicted);
+					}
+				});
+			});
+			return { conflictedClasses, nonExistClasses };
 		}
 	},
 	modules: {}
