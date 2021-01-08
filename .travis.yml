@@ -1,12 +1,10 @@
-lang: node_js
+language: node_js
 node_js:
   - "node"
 
 cache: npm
 
-script:
-  - npm install
-  - npm run build
+script: npm run build
 
 deploy:
   provider: pages
