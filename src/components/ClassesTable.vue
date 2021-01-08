@@ -9,6 +9,7 @@
           @keyup.enter="search"
           type="search"
           name="search"
+          ref="searchInput"
           placeholder="Tên môn, tên GV, thứ, tiết..."
         />
         <button class="btn" @click="search">Tìm kiếm</button>
@@ -226,8 +227,8 @@ export default {
           return (x + "").toLowerCase();
       }
     },
-    search(event) {
-      let qr = event.target.value.trim().toLowerCase();
+    search() {
+      let qr = this.$refs.searchInput.value.trim().toLowerCase();
       if (qr == "") {
         this.classes = this.$store.state.classes;
         return;
