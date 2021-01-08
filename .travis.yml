@@ -6,7 +6,6 @@ cache: npm
 
 script:
   - npm install -g @vue/cli
-  - npm install
   - npm run build
 
 deploy:
