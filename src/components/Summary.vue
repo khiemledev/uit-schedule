@@ -54,11 +54,11 @@ export default {
 }
 
 #lists {
-  @apply flex;
+  @apply md:flex;
 }
 
 .list {
-  @apply flex-1 text-xl font-semibold;
+  @apply md:flex-1 text-xl font-semibold;
 }
 
 .list ul {
