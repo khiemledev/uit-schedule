@@ -211,7 +211,7 @@ export default {
       this.dialog.body = body;
     },
     unselectClasses() {
-      this.selectedClasses = [];
+      this.$store.commit("clearClasses");
     },
     resetFilter() {
       this.displayFields = initFields;

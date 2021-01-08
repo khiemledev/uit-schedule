@@ -1,7 +1,5 @@
 import { createStore } from "vuex";
-
-import classesJSON from "../assets/TKB.json";
-var classes = classesJSON["TKB LT"].concat(classesJSON["TKB TH"]);
+import classes from "../services/classes_service.js";
 
 function hasCommon(a, b) {
 	if (a == "" || b == "") return false;
