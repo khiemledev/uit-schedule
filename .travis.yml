@@ -4,9 +4,9 @@ node_js:
 
 cache: npm
 
-script:
-  - npm install -g @vue/cli
-  - npm run build
+before_install: npm install
+
+script: npm run build
 
 deploy:
   provider: pages
