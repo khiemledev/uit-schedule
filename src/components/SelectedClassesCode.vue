@@ -5,6 +5,7 @@
       rows="10"
       :value="selectedClassesStr"
       @change="handleChange"
+      ref="classesInput"
     ></textarea>
     <p v-if="conflictMsg != ''" class="error-msg">{{ conflictMsg }}</p>
     <p v-if="nonExistMsg != ''" class="error-msg">{{ nonExistMsg }}</p>
@@ -40,13 +41,17 @@ export default {
     };
   },
   methods: {
-    handleChange(event) {
+    handleChange() {
       this.conflictMsg = "";
       this.nonExistMsg = "";
-      let classes = event.target.value
+      let classes = this.$refs.classesInput.value
         .trim()
         .split("\n")
-        .map((e) => e.trim());
+        .map((e) => e.trim())
+        .filter((e) => e != "");
+      this.submitChange(classes);
+    },
+    submitChange(classes) {
       this.$store.dispatch("addClasses", classes).then((res) => {
         if (res) {
           const { conflictedClasses, nonExistClasses } = res;

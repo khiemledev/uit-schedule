@@ -1,5 +1,11 @@
 import { createStore } from "vuex";
-import classes from "../services/classes_service.js";
+import {
+	classes,
+	selectedClasses,
+	selectedClassesDetail,
+	storeSelectedClasses,
+	storeSelectedClassesDetail
+} from "../services/index.js";
 
 function hasCommon(a, b) {
 	if (a == "" || b == "") return false;
@@ -11,9 +17,9 @@ function hasCommon(a, b) {
 
 export default createStore({
 	state: {
-		classes: classes,
-		selectedClasses: [],
-		selectedClassesDetail: []
+		classes: classes(),
+		selectedClasses: selectedClasses(),
+		selectedClassesDetail: selectedClassesDetail()
 	},
 	getters: {
 		soTC(state) {
@@ -40,16 +46,22 @@ export default createStore({
 				...state.selectedClassesDetail,
 				classDetail
 			];
+			storeSelectedClasses(state.selectedClasses);
+			storeSelectedClassesDetail(state.selectedClassesDetail);
 		},
 		removeClass(state, _class) {
 			state.selectedClasses = state.selectedClasses.filter((c) => c != _class);
 			state.selectedClassesDetail = state.selectedClassesDetail.filter(
 				(c) => c.MaLop != _class
 			);
+			storeSelectedClasses(state.selectedClasses);
+			storeSelectedClassesDetail(state.selectedClassesDetail);
 		},
 		clearClasses(state) {
 			state.selectedClasses = [];
 			state.selectedClassesDetail = [];
+			storeSelectedClasses(state.selectedClasses);
+			storeSelectedClassesDetail(state.selectedClassesDetail);
 		}
 	},
 	actions: {
