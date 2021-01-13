@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@
+      - uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: npm ci
@@ -23,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
