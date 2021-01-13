@@ -1,0 +1,29 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: Install dependencies and build project
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+  deploy:
+    name: Deploy to Github Pages
+
+    steps:
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
