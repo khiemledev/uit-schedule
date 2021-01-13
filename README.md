@@ -1,4 +1,4 @@
-# UIT Schedule [![Build Status](https://travis-ci.com/khiemledev/uit-schedule.svg?branch=main)](https://travis-ci.com/khiemledev/uit-schedule)
+# UIT Schedule ![Build and deploy](https://github.com/khiemledev/uit-schedule/workflows/Build%20and%20deploy/badge.svg)
 
 UIT Schedule là công cụ giúp cho sinh viên UIT có thể dễ dàng chọn và sắp xếp thời khóa biểu của mình cho việc đăng ký học phần.
 
