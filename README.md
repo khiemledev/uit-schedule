@@ -2,7 +2,11 @@
 
 UIT Schedule là công cụ giúp cho sinh viên UIT có thể dễ dàng chọn và sắp xếp thời khóa biểu của mình cho việc đăng ký học phần.
 
-## Chức năng chính
+## Incoming features
+
+- Shareable link
+
+## Main features
 
 - Danh sách lớp học dự kiến
   - Chọn lớp bạn muốn học
