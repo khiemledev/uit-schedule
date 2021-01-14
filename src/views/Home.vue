@@ -4,6 +4,7 @@
     <ScheduleTable />
     <SelectedClassesCode />
     <ClassesTable />
+    <TheFooter />
     <ButtonBackToTop />
   </div>
 </template>
@@ -14,6 +15,7 @@ import ScheduleTable from "../components/ScheduleTable";
 import SelectedClassesCode from "../components/SelectedClassesCode";
 import Summary from "../components/Summary";
 import ButtonBackToTop from "../components/BackToTopButton";
+import TheFooter from "../components/TheFooter";
 
 export default {
   name: "Home",
@@ -23,6 +25,7 @@ export default {
     SelectedClassesCode,
     Summary,
     ButtonBackToTop,
+    TheFooter,
   },
 };
 </script>
