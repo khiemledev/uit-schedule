@@ -452,14 +452,14 @@ export default {
 }
 
 .page-number {
-  @apply text-xl py-2 px-4 text-center font-semibold border border-gray-500 rounded;
+  @apply text-xl py-1 px-3 text-center font-semibold border border-gray-500 rounded;
 }
 
 .pag-btn {
-  @apply p-2 rounded bg-gray-700 text-white cursor-pointer;
+  @apply p-1.5 rounded bg-gray-700 text-white cursor-pointer;
 }
 
 .pag-btn svg {
-  @apply w-8 h-8;
+  @apply w-7 h-7;
 }
 </style>
