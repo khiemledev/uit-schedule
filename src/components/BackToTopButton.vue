@@ -1,6 +1,6 @@
 <template>
   <transition name="bounce">
-    <div id="btn-back-to-top" v-show="show">
+    <div id="btn-back-to-top" v-show="show" @click="goToTop">
       <svg
         fill="none"
         stroke="currentColor"
@@ -25,6 +25,11 @@ export default {
     return {
       show: false,
     };
+  },
+  methods: {
+    goToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
   },
   mounted() {
     window.onscroll = () => {
