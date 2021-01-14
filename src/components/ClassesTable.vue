@@ -38,9 +38,47 @@
         Đặt lại bộ lọc
       </button>
     </div>
-    <button id="btn-unselect-classes" @click="unselectClasses" class="btn">
-      Bỏ chọn ({{ selectedClasses.length }} đã chọn)
-    </button>
+
+    <div class="table-actions">
+      <button id="btn-unselect-classes" @click="unselectClasses" class="btn">
+        Bỏ chọn ({{ selectedClasses.length }} đã chọn)
+      </button>
+
+      <div class="pagination-bar">
+        <div class="pag-btn" @click="prevPage">
+          <svg
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            ></path>
+          </svg>
+        </div>
+        <div class="page-number">{{ page }}</div>
+        <div class="pag-btn" @click="nextPage">
+          <svg
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
     <div id="table-wrapper">
       <table id="table">
         <tr>
@@ -57,14 +95,6 @@
           <td>
             <input type="checkbox" :value="e.MaLop" v-model="selectedClasses" />
           </td>
-          <!-- <td
-            v-for="e2 in mapper"
-            v-if="displayFields.includes(e2.field)"
-            :key="e2.field"
-            :class="{ 'text-center': e2.center }"
-          >
-            {{ e[e2.field] }}
-          </td> -->
           <td v-if="displayFields.includes('STT')" class="text-center">
             {{ e.STT }}
           </td>
@@ -127,6 +157,39 @@
         </tr>
       </table>
     </div>
+    <div class="pagination-bar">
+      <div class="pag-btn" @click="prevPage">
+        <svg
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          ></path>
+        </svg>
+      </div>
+      <div class="page-number">{{ page }}</div>
+      <div class="pag-btn" @click="nextPage">
+        <svg
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          ></path>
+        </svg>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -155,7 +218,10 @@ export default {
       mapper: mapper,
       showFilter: false,
       classes: [],
+      queriedClasses: [],
       selectedClasses: [],
+      page: 1,
+      itemsPerPage: 50,
       dialog: {
         show: false,
         title: "Alert",
@@ -170,20 +236,24 @@ export default {
     getSelectedClasses() {
       return this.$store.state.selectedClasses;
     },
+    start() {
+      return (this.page - 1) * this.itemsPerPage;
+    },
+    end() {
+      return this.itemsPerPage * this.page;
+    },
   },
   watch: {
+    queriedClasses() {
+      this.updateClasses();
+    },
+    page() {
+      this.updateClasses();
+    },
     getSelectedClasses(newVal) {
       this.selectedClasses = newVal;
     },
     selectedClasses(newVal) {
-      // this.$store.dispatch("selectClasses", newVal).then((res) => {
-      //   if (res) {
-      //     const { conflictedClasses } = res;
-      //     var classes = conflictedClasses.map((c) => c.MaLop).join(", ");
-      //     this.openDialog(`Mã lớp ${classes} bị trùng!`);
-      //     this.selectedClasses.splice(this.selectedClasses.length - 1, 1);
-      //   }
-      // });
       let newClass = newVal.find((c) => !this.getSelectedClasses.includes(c));
       let removedClass = this.getSelectedClasses.find(
         (c) => !newVal.includes(c)
@@ -204,6 +274,21 @@ export default {
     },
   },
   methods: {
+    updateClasses() {
+      this.classes = this.queriedClasses.slice(this.start, this.end);
+    },
+    nextPage() {
+      if (
+        this.page < Math.ceil(this.queriedClasses.length / this.itemsPerPage)
+      ) {
+        this.page++;
+      }
+    },
+    prevPage() {
+      if (this.page > 1) {
+        this.page--;
+      }
+    },
     closeDialog() {
       this.dialog.show = false;
     },
@@ -230,11 +315,13 @@ export default {
     search() {
       let qr = this.$refs.searchInput.value.trim().toLowerCase();
       if (qr == "") {
-        this.classes = this.$store.state.classes;
+        this.page = 1;
+        this.queriedClasses = this.$store.state.classes;
         return;
       }
       // Search for every field that includes the query
-      this.classes = this.$store.state.classes.filter(
+      this.page = 1;
+      this.queriedClasses = this.$store.state.classes.filter(
         (c) =>
           this.safeToStr(c.STT).includes(qr) ||
           this.safeToStr(c.MaMH).includes(qr) ||
@@ -262,7 +349,7 @@ export default {
     },
   },
   mounted() {
-    this.classes = this.getClasses;
+    this.queriedClasses = this.getClasses;
     this.selectedClasses = this.getSelectedClasses;
   },
 };
@@ -270,7 +357,7 @@ export default {
 
 <style scoped>
 #classes-table {
-  @apply container;
+  @apply container space-y-2;
 }
 
 #actions-bar {
@@ -322,7 +409,11 @@ export default {
 }
 
 #table-wrapper {
-  @apply w-full h-screen overflow-auto border border-gray-500;
+  @apply w-full overflow-x-auto;
+}
+
+.table-actions {
+  @apply flex justify-between flex-wrap;
 }
 
 #btn-unselect-classes {
@@ -354,5 +445,21 @@ export default {
 
 #table th {
   @apply text-white bg-gray-700;
+}
+
+.pagination-bar {
+  @apply flex justify-end items-center space-x-4;
+}
+
+.page-number {
+  @apply text-xl py-2 px-4 text-center font-semibold border border-gray-500 rounded;
+}
+
+.pag-btn {
+  @apply p-2 rounded bg-gray-700 text-white cursor-pointer;
+}
+
+.pag-btn svg {
+  @apply w-8 h-8;
 }
 </style>
