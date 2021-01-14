@@ -33,73 +33,67 @@ export default {
 
 <style scoped>
 #app {
-  padding: 1rem;
+  @apply p-4;
 }
 
 .modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
+  @apply fixed z-50 top-0 left-0 w-full h-full bg-black bg-opacity-50 table transition-opacity duration-300 ease-in-out;
 }
 
 .modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
+  @apply table-cell align-middle;
 }
 
 .modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
+  @apply w-72 my-0 mx-auto py-5 px-8 bg-white rounded shadow-lg transition-all duration-300 ease-in-out;
   font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
-  @apply mt-0 text-blue-500 font-semibold;
+  @apply mt-0 text-lg text-blue-500 font-semibold;
 }
 
 .modal-body {
-  margin: 20px 0;
+  @apply my-5;
 }
 
 .modal-footer {
-  text-align: right;
+  @apply text-right;
 }
 
 .modal-default-button {
-  @apply transition-colors duration-300 text-blue-600 border border-blue-600 rounded hover:bg-blue-50 py-0.5 px-4;
+  @apply transition-colors duration-300 text-blue-600 border border-blue-600 rounded hover:bg-blue-50 py-1 px-5;
 }
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter {
-  opacity: 0;
+.modal-enter-active {
+  animation: fade 0.3s;
 }
-
 .modal-leave-active {
-  opacity: 0;
+  animation: fade 0.3s reverse;
 }
-
-.modal-enter .modal-container,
+.modal-enter-active .modal-container {
+  animation: bounce-in 0.4s;
+}
 .modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+  animation: bounce-in 0.4s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>
