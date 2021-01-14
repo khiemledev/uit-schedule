@@ -22,22 +22,24 @@
         {{ showFilter ? "Ẩn" : "Hiện" }} bộ lọc
       </button>
     </div>
-    <div id="filter" v-if="showFilter">
-      <div id="filters">
-        <span v-for="e in mapper" :key="e.field" class="cb-group">
-          <input
-            type="checkbox"
-            :name="`cb-${e.field}`"
-            :value="e.field"
-            v-model="displayFields"
-          />
-          <label :for="`cb-${e.field}`">{{ e.name }}</label>
-        </span>
+    <transition name="bounce">
+      <div id="filter" v-if="showFilter">
+        <div id="filters">
+          <span v-for="e in mapper" :key="e.field" class="cb-group">
+            <input
+              type="checkbox"
+              :name="`cb-${e.field}`"
+              :value="e.field"
+              v-model="displayFields"
+            />
+            <label :for="`cb-${e.field}`">{{ e.name }}</label>
+          </span>
+        </div>
+        <button id="btn-reset-filter" class="btn" @click="resetFilter">
+          Đặt lại bộ lọc
+        </button>
       </div>
-      <button id="btn-reset-filter" class="btn" @click="resetFilter">
-        Đặt lại bộ lọc
-      </button>
-    </div>
+    </transition>
 
     <div class="table-actions">
       <button id="btn-unselect-classes" @click="unselectClasses" class="btn">
@@ -461,5 +463,26 @@ export default {
 
 .pag-btn svg {
   @apply w-7 h-7;
+}
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 </style>
