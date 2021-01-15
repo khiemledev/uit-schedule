@@ -40,28 +40,4 @@ export default {
 };
 </script>
 
-<style scoped>
-#summary {
-  @apply border border-gray-500 rounded-md p-3 space-y-4;
-}
-
-#summary-head {
-  @apply text-2xl font-semibold;
-}
-
-#soTC {
-  @apply text-xl font-semibold;
-}
-
-#lists {
-  @apply md:flex;
-}
-
-.list {
-  @apply md:flex-1 text-xl font-semibold;
-}
-
-.list ul {
-  @apply text-base list-disc list-inside;
-}
-</style>
+<style scoped src="../styles/Summary.css"></style>

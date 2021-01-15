@@ -46,30 +46,4 @@ export default {
 };
 </script>
 
-<style scoped>
-#btn-back-to-top {
-  @apply fixed right-2 bottom-2 p-2 bg-gray-700 rounded text-white cursor-pointer;
-}
-
-#btn-back-to-top svg {
-  @apply w-6 h-6;
-}
-
-.bounce-enter-active {
-  animation: bounce-in 0.5s;
-}
-.bounce-leave-active {
-  animation: bounce-in 0.5s reverse;
-}
-@keyframes bounce-in {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.5);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-</style>
+<style scoped src="../styles/BackToTopButton.css"></style>

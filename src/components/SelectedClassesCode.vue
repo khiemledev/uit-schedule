@@ -75,16 +75,4 @@ export default {
 };
 </script>
 
-<style scoped>
-#selected-classes-code {
-  @apply w-full;
-}
-
-#classes-code {
-  @apply border border-gray-500 p-2 w-full;
-}
-
-.error-msg {
-  @apply text-lg text-red-500;
-}
-</style>
+<style scoped src="../styles/SelectedClassesCode.css"></style>

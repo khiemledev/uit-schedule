@@ -20,12 +20,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.footer {
-  @apply text-center;
-}
-
-.footer a {
-  @apply text-blue-600 font-semibold;
-}
-</style>
+<style scoped src="../styles/TheFotter.css"></style>

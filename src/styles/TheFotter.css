@@ -1,0 +1,7 @@
+.footer {
+	@apply text-center;
+}
+
+.footer a {
+	@apply text-blue-600 font-semibold;
+}
