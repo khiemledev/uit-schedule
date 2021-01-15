@@ -16,6 +16,7 @@ UIT Schedule là công cụ giúp cho sinh viên UIT có thể dễ dàng chọn
 - Thời khóa biểu đã chọn
   - Hiện các thông tin cần thiết
   - Cho phép bỏ chọn lớp
+  - Lưu lại dưới dạng hình ảnh **[New]**
 - Danh sách các mã lớp đã chọn
   - Hiển thị các mã lớp đã chọn
   - Dễ dàng chọn nhanh bằng cách dán mã lớp
