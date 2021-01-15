@@ -327,6 +327,7 @@ export default {
         (c) =>
           this.safeToStr(c.STT).includes(qr) ||
           this.safeToStr(c.MaMH).includes(qr) ||
+          this.safeToStr(c.MaLop).includes(qr) ||
           this.safeToStr(c.TenMH).includes(qr) ||
           this.safeToStr(c.MaGV).includes(qr) ||
           this.safeToStr(c.TenGV).includes(qr) ||
