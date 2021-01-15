@@ -1,6 +1,9 @@
 <template>
   <div id="container">
-    <div id="table-wrapper">
+    <div id="btn-save-as-image">
+      <button @click="saveImage">Lưu hình ảnh</button>
+    </div>
+    <div id="table-wrapper" :class="{ 'overflow-auto': !exporting }">
       <table id="schedule-table">
         <tr>
           <th>Tiết</th>
@@ -79,12 +82,15 @@
 </template>
 
 <script>
+import domtoimage from "dom-to-image";
+
 export default {
   name: "ScheduleTable",
   data() {
     return {
       classes: [],
       unknownClasses: [],
+      exporting: false,
     };
   },
   watch: {
@@ -98,6 +104,22 @@ export default {
     },
   },
   methods: {
+    saveImage() {
+      this.exporting = true;
+      domtoimage
+        .toJpeg(document.getElementById("schedule-table"))
+        .then((dataUrl) => {
+          var link = document.createElement("a");
+          link.download = "my-image-name.jpeg";
+          link.href = dataUrl;
+          link.click();
+          this.exporting = false;
+        })
+        .catch((e) => {
+          console.log(e);
+          this.exporting = false;
+        });
+    },
     unselectClass(maLop) {
       this.$store.commit("removeClass", maLop);
     },
@@ -154,21 +176,29 @@ export default {
 
 <style scoped>
 #container {
-  @apply container;
+  @apply container space-y-2;
 }
 
 #table-wrapper {
-  @apply overflow-auto border border-gray-500 p-0;
+  @apply border border-gray-500 p-0;
+}
+
+#btn-save-as-image {
+  @apply text-right;
+}
+
+#btn-save-as-image button {
+  @apply bg-blue-500 rounded text-white py-1.5 px-3 transition-all duration-300 hover:bg-blue-700;
 }
 
 #schedule-table {
-  @apply w-full;
+  @apply w-full bg-white;
 }
 
 #schedule-table th,
 #schedule-table td {
   @apply border border-gray-500 p-2;
-  min-width: 7rem;
+  min-width: 10rem;
 }
 
 #schedule-table th:first-child,
@@ -182,10 +212,6 @@ export default {
 
 .active span {
   @apply block;
-}
-
-#unknown-classes {
-  @apply mt-3;
 }
 
 #unknown-classes p {
