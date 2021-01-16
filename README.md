@@ -18,8 +18,13 @@ UIT Schedule là công cụ giúp cho sinh viên UIT có thể dễ dàng chọn
   - Cho phép bỏ chọn lớp
   - Lưu lại dưới dạng hình ảnh **[New]**
 - Danh sách các mã lớp đã chọn
+
   - Hiển thị các mã lớp đã chọn
   - Dễ dàng chọn nhanh bằng cách dán mã lớp
+
+Các môn học bạn đã chọn sẽ được lưu lại trong storage nên sẽ không bị mất khi bạn thoát trang
+
+Bạn có thể dễ dàng lưu lại thời khóa biểu của mình với tính năng lưu hình ảnh
 
 ## Screenshots
 
