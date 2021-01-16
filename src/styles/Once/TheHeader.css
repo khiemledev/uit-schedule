@@ -1,0 +1,11 @@
+#header {
+	@apply text-center p-3 rounded-md bg-gray-700 space-y-1;
+}
+
+#header h1 {
+	@apply text-2xl font-bold text-white;
+}
+
+#header p {
+	@apply text-white text-base italic;
+}
