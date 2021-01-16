@@ -1,0 +1,15 @@
+#unknown-classes p {
+	@apply font-semibold text-lg;
+}
+
+#unknown-classes li {
+	@apply border border-gray-400 rounded p-2 my-1 relative pr-3 lg:pr-0;
+}
+
+#unselect-class {
+	@apply w-6 h-6 absolute top-1 right-1 cursor-pointer;
+}
+
+#unselect-unknown-class {
+	@apply w-6 h-6 absolute right-2 top-2 cursor-pointer;
+}

@@ -1,0 +1,15 @@
+.pagination-bar {
+	@apply flex justify-end items-center space-x-4;
+}
+
+.page-number {
+	@apply text-xl py-1 px-3 text-center font-semibold border border-gray-500 rounded;
+}
+
+.pag-btn {
+	@apply p-1.5 rounded bg-gray-700 text-white cursor-pointer;
+}
+
+.pag-btn svg {
+	@apply w-7 h-7;
+}

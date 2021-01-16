@@ -19,7 +19,18 @@ export default createStore({
 	state: {
 		classes: classes(),
 		selectedClasses: selectedClasses(),
-		selectedClassesDetail: selectedClassesDetail()
+		selectedClassesDetail: selectedClassesDetail(),
+		displayFields: [
+			"MaMH",
+			"MaLop",
+			"TenMH",
+			"TenGV",
+			"SoTC",
+			"Thu",
+			"Tiet",
+			"PhongHoc",
+			"KhoaQL"
+		]
 	},
 	getters: {
 		soTC(state) {
@@ -39,6 +50,19 @@ export default createStore({
 		}
 	},
 	mutations: {
+		resetFilter(state) {
+			state.displayFields = [
+				"MaMH",
+				"MaLop",
+				"TenMH",
+				"TenGV",
+				"SoTC",
+				"Thu",
+				"Tiet",
+				"PhongHoc",
+				"KhoaQL"
+			];
+		},
 		addClass(state, _class) {
 			state.selectedClasses = [...state.selectedClasses, _class];
 			let classDetail = state.classes.find((c) => c.MaLop == _class);

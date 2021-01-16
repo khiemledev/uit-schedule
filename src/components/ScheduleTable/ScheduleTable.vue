@@ -53,39 +53,17 @@
         </tr>
       </table>
     </div>
-    <div id="unknown-classes" v-if="unknownClasses.length > 0">
-      <p>Danh sách các lớp chưa sắp xếp lịch dự kiến:</p>
-      <ul>
-        <li v-for="e in unknownClasses" :key="e.MaLop">
-          <span class="font-bold">{{ e.MaLop }}</span> -
-          <span>{{ e.TenMH }}</span> -
-          <span class="font-bold">{{ e.TenGV }}</span>
-          <div id="unselect-unknown-class" @click="unselectClass(e.MaLop)">
-            <svg
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
-            </svg>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <ScheduleTableUnKnownClasses :unknownClasses="unknownClasses" />
   </div>
 </template>
 
 <script>
 import domtoimage from "dom-to-image";
+import ScheduleTableUnKnownClasses from "@/components/ScheduleTable/ScheduleTableUnknownClasses";
 
 export default {
   name: "ScheduleTable",
+  components: { ScheduleTableUnKnownClasses },
   data() {
     return {
       classes: [],
@@ -174,4 +152,4 @@ export default {
 };
 </script>
 
-<style scoped src="../styles/ScheduleTable.css"></style>
+<style scoped src="@/styles/ScheduleTable/ScheduleTable.css"></style>

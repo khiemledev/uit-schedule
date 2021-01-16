@@ -20,4 +20,4 @@ export default {
 };
 </script>
 
-<style scoped src="../styles/TheFotter.css"></style>
+<style scoped src="@/styles/Once/TheFotter.css"></style>

@@ -1,0 +1,48 @@
+#filter {
+	@apply border border-gray-500 rounded p-3 mb-3 text-right;
+}
+
+.btn {
+	@apply transition-colors duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded;
+}
+
+#filters {
+	@apply flex flex-wrap mb-2;
+}
+
+#filters .cb-group {
+	@apply flex items-center mr-4;
+}
+
+#filters .cb-group input {
+	@apply w-5 h-5 mr-1;
+}
+
+#filters .cb-group label {
+	@apply font-semibold;
+}
+
+#btn-reset-filter {
+	@apply bg-red-500 hover:bg-red-700;
+}
+
+.bounce-enter-active {
+	animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+	animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+	0% {
+		transform: scale(0);
+		opacity: 0;
+	}
+	50% {
+		transform: scale(1.15);
+		opacity: 0.7;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}

@@ -46,4 +46,4 @@ export default {
 };
 </script>
 
-<style scoped src="../styles/BackToTopButton.css"></style>
+<style scoped src="@/styles/Once/BackToTopButton.css"></style>

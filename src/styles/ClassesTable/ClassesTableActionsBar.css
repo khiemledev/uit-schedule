@@ -1,0 +1,23 @@
+#actions-bar {
+	@apply flex flex-col sm:flex-row sm:justify-between items-center mb-2;
+}
+
+#search-form {
+	@apply w-full sm:w-auto my-1;
+}
+
+#search-form input {
+	@apply w-full sm:w-auto h-full border border-gray-500 rounded p-2 mb-1;
+}
+
+#search-form button {
+	@apply w-full sm:w-auto h-full sm:ml-2;
+}
+
+.btn {
+	@apply transition-colors duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded;
+}
+
+#btn-toggle-filter {
+	@apply w-full sm:w-auto h-full;
+}

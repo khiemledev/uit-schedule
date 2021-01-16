@@ -3,82 +3,28 @@
     <PopupDialog @close="closeDialog" v-show="dialog.show">
       <template #body>{{ dialog.body }}</template>
     </PopupDialog>
-    <div id="actions-bar">
-      <div id="search-form">
-        <input
-          @keyup.enter="search"
-          type="search"
-          name="search"
-          ref="searchInput"
-          placeholder="Tên môn, tên GV, thứ, tiết..."
-        />
-        <button class="btn" @click="search">Tìm kiếm</button>
-      </div>
-      <button
-        id="btn-toggle-filter"
-        class="btn"
-        @click="showFilter = !showFilter"
-      >
-        {{ showFilter ? "Ẩn" : "Hiện" }} bộ lọc
-      </button>
-    </div>
-    <transition name="bounce">
-      <div id="filter" v-if="showFilter">
-        <div id="filters">
-          <span v-for="e in mapper" :key="e.field" class="cb-group">
-            <input
-              type="checkbox"
-              :name="`cb-${e.field}`"
-              :value="e.field"
-              v-model="displayFields"
-            />
-            <label :for="`cb-${e.field}`">{{ e.name }}</label>
-          </span>
-        </div>
-        <button id="btn-reset-filter" class="btn" @click="resetFilter">
-          Đặt lại bộ lọc
-        </button>
-      </div>
-    </transition>
+    <ClassesTableActionsBar
+      @toggleShowFilter="toggleShowFilter"
+      @search="search"
+      :showFilter="showFilter"
+    />
+    <ClassesTableFilters
+      :showFilter="showFilter"
+      :displayFields="displayFields"
+      @displayFieldsChanged="displayFieldChanged"
+      @resetFilter="resetFilter"
+    />
 
     <div class="table-actions">
       <button id="btn-unselect-classes" @click="unselectClasses" class="btn">
         Bỏ chọn ({{ selectedClasses.length }} đã chọn)
       </button>
 
-      <div class="pagination-bar">
-        <div class="pag-btn" @click="prevPage">
-          <svg
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 19l-7-7 7-7"
-            ></path>
-          </svg>
-        </div>
-        <div class="page-number">{{ page }}</div>
-        <div class="pag-btn" @click="nextPage">
-          <svg
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"
-            ></path>
-          </svg>
-        </div>
-      </div>
+      <ClassesTablePaginationBar
+        :page="page"
+        @nextPage="nextPage"
+        @prevPage="prevPage"
+      />
     </div>
 
     <div id="table-wrapper">
@@ -159,64 +105,31 @@
         </tr>
       </table>
     </div>
-    <div class="pagination-bar">
-      <div class="pag-btn" @click="prevPage">
-        <svg
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 19l-7-7 7-7"
-          ></path>
-        </svg>
-      </div>
-      <div class="page-number">{{ page }}</div>
-      <div class="pag-btn" @click="nextPage">
-        <svg
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </svg>
-      </div>
-    </div>
+    <ClassesTablePaginationBar
+      :page="page"
+      @nextPage="nextPage"
+      @prevPage="prevPage"
+    />
   </div>
 </template>
 
 <script>
-import mapper from "../assets/json_mapper.json";
-import PopupDialog from "../components/PopupDialog";
-
-const initFields = [
-  "MaMH",
-  "MaLop",
-  "TenMH",
-  "TenGV",
-  "SoTC",
-  "Thu",
-  "Tiet",
-  "PhongHoc",
-  "KhoaQL",
-];
+import mapper from "@/assets/json_mapper.json";
+import PopupDialog from "@/components/PopupDialog";
+import ClassesTableActionsBar from "./ClassesTableActionsBar";
+import ClassesTableFilters from "./ClassesTableFilters";
+import ClassesTablePaginationBar from "./ClassesTablePaginationBar";
 
 export default {
   name: "ClassesTable",
-  components: { PopupDialog },
+  components: {
+    PopupDialog,
+    ClassesTableActionsBar,
+    ClassesTableFilters,
+    ClassesTablePaginationBar,
+  },
   data() {
     return {
-      displayFields: initFields,
       mapper: mapper,
       showFilter: false,
       classes: [],
@@ -232,6 +145,9 @@ export default {
     };
   },
   computed: {
+    displayFields() {
+      return this.$store.state.displayFields;
+    },
     getClasses() {
       return this.$store.state.classes;
     },
@@ -276,6 +192,12 @@ export default {
     },
   },
   methods: {
+    displayFieldChanged(newVal) {
+      this.displayFields = newVal;
+    },
+    toggleShowFilter() {
+      this.showFilter = !this.showFilter;
+    },
     updateClasses() {
       this.classes = this.queriedClasses.slice(this.start, this.end);
     },
@@ -302,7 +224,7 @@ export default {
       this.$store.commit("clearClasses");
     },
     resetFilter() {
-      this.displayFields = initFields;
+      this.$store.commit("resetFilter");
     },
     safeToStr(x) {
       switch (typeof x) {
@@ -314,8 +236,7 @@ export default {
           return (x + "").toLowerCase();
       }
     },
-    search() {
-      let qr = this.$refs.searchInput.value.trim().toLowerCase();
+    search(qr) {
       if (qr == "") {
         this.page = 1;
         this.queriedClasses = this.$store.state.classes;
@@ -358,4 +279,4 @@ export default {
 };
 </script>
 
-<style scoped src="../styles/ClassesTable.css"></style>
+<style scoped src="@/styles/ClassesTable/ClassesTable.css"></style>

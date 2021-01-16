@@ -1,0 +1,46 @@
+#classes-table {
+	@apply container space-y-2;
+}
+
+.btn {
+	@apply transition-colors duration-300 ease-in-out bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded;
+}
+
+#table-wrapper {
+	@apply w-full overflow-x-auto;
+}
+
+.table-actions {
+	@apply flex justify-between flex-wrap;
+}
+
+#btn-unselect-classes {
+	@apply mb-1;
+}
+
+#table {
+	@apply w-full;
+}
+
+#table th,
+#table td {
+	@apply border border-gray-500 p-2 text-lg;
+	min-width: 5rem;
+}
+
+#table tr th:first-child,
+#table tr td:first-child {
+	min-width: 0;
+}
+
+#table tr td input {
+	@apply w-5 h-5 m-2 cursor-pointer;
+}
+
+#table tr {
+	@apply hover:bg-gray-100;
+}
+
+#table th {
+	@apply text-white bg-gray-700;
+}
