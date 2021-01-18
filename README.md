@@ -22,9 +22,11 @@ UIT Schedule là công cụ giúp cho sinh viên UIT có thể dễ dàng chọn
   - Hiển thị các mã lớp đã chọn
   - Dễ dàng chọn nhanh bằng cách dán mã lớp
 
+Bạn có thể dễ dàng lưu lại thời khóa biểu của mình với tính năng lưu hình ảnh
+
 Các môn học bạn đã chọn sẽ được lưu lại trong storage nên sẽ không bị mất khi bạn thoát trang
 
-Bạn có thể dễ dàng lưu lại thời khóa biểu của mình với tính năng lưu hình ảnh
+**Lưu ý**: Để đảm bảo việc cập nhật TKB mới nhất cho đợt ĐKHP tiếp theo, mình sẽ cho xóa hết dữ liệu đã lưu trong storage sau 30 ngày.
 
 ## Screenshots
 
