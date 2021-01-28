@@ -1,6 +1,7 @@
 <template>
   <div id="home">
     <TheHeader />
+    <LastUpdateTime />
     <Summary />
     <ScheduleTable />
     <SelectedClassesCode />
@@ -18,6 +19,7 @@ import Summary from "../components/Summary";
 import ButtonBackToTop from "../components/Once/BackToTopButton";
 import TheFooter from "../components/Once/TheFooter";
 import TheHeader from "../components/Once/TheHeader";
+import LastUpdateTime from "../components/Once/LastUpdateTime";
 
 export default {
   name: "Home",
@@ -29,6 +31,7 @@ export default {
     ButtonBackToTop,
     TheFooter,
     TheHeader,
+    LastUpdateTime
   },
 };
 </script>
