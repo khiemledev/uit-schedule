@@ -50,10 +50,7 @@ function storeSelectedClasses(classes) {
 
 function storeSelectedClassesDetail(classesDetail) {
 	if (isStorageSupported) {
-		localStorage.setItem(
-			SELECTED_CLASSES_DETAIL,
-			JSON.stringify(classesDetail)
-		);
+		localStorage.setItem(SELECTED_CLASSES_DETAIL, JSON.stringify(classesDetail));
 	}
 }
 
@@ -100,10 +97,39 @@ function retrieveSelectedClassesDetail() {
 	return [];
 }
 
+const convertData = (data) =>
+	data
+		.filter((item) => typeof item[0] == "number")
+		.map((item) => ({
+			STT: item[0],
+			MaMH: item[1],
+			MaLop: item[2],
+			TenMH: item[3],
+			MaGV: item[4],
+			TenGV: item[5],
+			SiSo: item[6],
+			SoTC: item[7],
+			TH: item[8],
+			HTGD: item[9],
+			Thu: item[10],
+			Tiet: item[11],
+			CachTuan: item[12],
+			KhoaHoc: item[13],
+			HocKy: item[14],
+			NamHoc: item[15],
+			HeDT: item[16],
+			KhoaQL: item[17],
+			NBD: item[18], //NOTE: xu li ngay
+			NKT: item[19], //NOTE: xu li ngay
+			Lang: item[20],
+		}));
+
 export {
 	retrieveClasses as classes,
 	retrieveSelectedClasses as selectedClasses,
 	storeSelectedClasses,
 	retrieveSelectedClassesDetail as selectedClassesDetail,
-	storeSelectedClassesDetail
+	storeSelectedClassesDetail,
+	convertData,
+	storeClasses,
 };

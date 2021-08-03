@@ -1,11 +1,5 @@
-import { createStore } from "vuex";
-import {
-	classes,
-	selectedClasses,
-	selectedClassesDetail,
-	storeSelectedClasses,
-	storeSelectedClassesDetail
-} from "../services/index.js";
+import {createStore} from "vuex";
+import {classes, selectedClasses, selectedClassesDetail, storeSelectedClasses, storeClasses, storeSelectedClassesDetail} from "../services/index.js";
 
 function hasCommon(a, b) {
 	if (a == "" || b == "") return false;
@@ -20,64 +14,39 @@ export default createStore({
 		classes: classes(),
 		selectedClasses: selectedClasses(),
 		selectedClassesDetail: selectedClassesDetail(),
-		displayFields: [
-			"MaMH",
-			"MaLop",
-			"TenMH",
-			"TenGV",
-			"SoTC",
-			"Thu",
-			"Tiet",
-			"PhongHoc",
-			"KhoaQL"
-		]
+		displayFields: ["MaMH", "MaLop", "TenMH", "TenGV", "SoTC", "Thu", "Tiet", "PhongHoc", "KhoaQL"],
 	},
 	getters: {
 		soTC(state) {
-			return state.selectedClassesDetail
-				.map((c) => c.SoTC)
-				.reduce((a, b) => a + b, 0);
+			return state.selectedClassesDetail.map((c) => c.SoTC).reduce((a, b) => a + b, 0);
 		},
 		tenGV(state) {
-			return state.selectedClassesDetail
-				.map((c) => c.TenGV)
-				.filter((v, i, self) => v && self.indexOf(v) == i);
+			return state.selectedClassesDetail.map((c) => c.TenGV).filter((v, i, self) => v && self.indexOf(v) == i);
 		},
 		tenMH(state) {
-			return state.selectedClassesDetail
-				.map((c) => c.TenMH)
-				.filter((v, i, self) => v && self.indexOf(v) == i);
-		}
+			return state.selectedClassesDetail.map((c) => c.TenMH).filter((v, i, self) => v && self.indexOf(v) == i);
+		},
 	},
 	mutations: {
+		setClasses(state, classes) {
+			state.classes = classes;
+			storeClasses(classes);
+			// NOTE: cho nay reload window hoac refresh table
+			window.location.reload();
+		},
 		resetFilter(state) {
-			state.displayFields = [
-				"MaMH",
-				"MaLop",
-				"TenMH",
-				"TenGV",
-				"SoTC",
-				"Thu",
-				"Tiet",
-				"PhongHoc",
-				"KhoaQL"
-			];
+			state.displayFields = ["MaMH", "MaLop", "TenMH", "TenGV", "SoTC", "Thu", "Tiet", "PhongHoc", "KhoaQL"];
 		},
 		addClass(state, _class) {
 			state.selectedClasses = [...state.selectedClasses, _class];
 			let classDetail = state.classes.find((c) => c.MaLop == _class);
-			state.selectedClassesDetail = [
-				...state.selectedClassesDetail,
-				classDetail
-			];
+			state.selectedClassesDetail = [...state.selectedClassesDetail, classDetail];
 			storeSelectedClasses(state.selectedClasses);
 			storeSelectedClassesDetail(state.selectedClassesDetail);
 		},
 		removeClass(state, _class) {
 			state.selectedClasses = state.selectedClasses.filter((c) => c != _class);
-			state.selectedClassesDetail = state.selectedClassesDetail.filter(
-				(c) => c.MaLop != _class
-			);
+			state.selectedClassesDetail = state.selectedClassesDetail.filter((c) => c.MaLop != _class);
 			storeSelectedClasses(state.selectedClasses);
 			storeSelectedClassesDetail(state.selectedClassesDetail);
 		},
@@ -86,14 +55,14 @@ export default createStore({
 			state.selectedClassesDetail = [];
 			storeSelectedClasses(state.selectedClasses);
 			storeSelectedClassesDetail(state.selectedClassesDetail);
-		}
+		},
 	},
 	actions: {
-		addClass({ state, commit }, _class) {
+		addClass({state, commit}, _class) {
 			if (!_class || _class == "") return;
 			let classDetail = state.classes.find((c) => c.MaLop == _class);
 			if (!classDetail) {
-				return { classDoesNotExist: _class };
+				return {classDoesNotExist: _class};
 			}
 			if (state.selectedClasses.length == 0) {
 				commit("addClass", _class);
@@ -109,23 +78,19 @@ export default createStore({
 					hasCommon(c.Tiet, classDetail.Tiet)
 			);
 			if (conflictedClasses.length > 0) {
-				return { classWasConflicted: _class };
+				return {classWasConflicted: _class};
 			}
 
 			commit("addClass", _class);
 		},
-		addClasses({ state, dispatch, commit }, classes) {
+		addClasses({state, dispatch, commit}, classes) {
 			if (classes.length == 0) {
 				commit("clearClasses");
 				return;
 			}
 
-			let newClasses = classes.filter(
-				(c) => !state.selectedClasses.includes(c)
-			);
-			let removeClasses = state.selectedClasses.filter(
-				(c) => !classes.includes(c)
-			);
+			let newClasses = classes.filter((c) => !state.selectedClasses.includes(c));
+			let removeClasses = state.selectedClasses.filter((c) => !classes.includes(c));
 
 			removeClasses.forEach((c) => {
 				commit("removeClass", c);
@@ -137,15 +102,14 @@ export default createStore({
 			newClasses.forEach((c) => {
 				dispatch("addClass", c).then((res) => {
 					if (res) {
-						const { classDoesNotExist, classWasConflicted } = res;
+						const {classDoesNotExist, classWasConflicted} = res;
 						if (classDoesNotExist) nonExistClasses.push(classDoesNotExist);
-						else if (classWasConflicted)
-							conflictedClasses.push(classWasConflicted);
+						else if (classWasConflicted) conflictedClasses.push(classWasConflicted);
 					}
 				});
 			});
-			return { conflictedClasses, nonExistClasses };
-		}
+			return {conflictedClasses, nonExistClasses};
+		},
 	},
-	modules: {}
+	modules: {},
 });

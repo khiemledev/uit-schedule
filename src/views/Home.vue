@@ -1,14 +1,14 @@
 <template>
-  <div id="home">
-    <TheHeader />
-    <LastUpdateTime />
-    <Summary />
-    <ScheduleTable />
-    <SelectedClassesCode />
-    <ClassesTable />
-    <TheFooter />
-    <ButtonBackToTop />
-  </div>
+	<div id="home">
+		<TheHeader />
+		<LastUpdateTime />
+		<Summary />
+		<ScheduleTable />
+		<SelectedClassesCode />
+		<ClassesTable />
+		<TheFooter />
+		<ButtonBackToTop />
+	</div>
 </template>
 
 <script>
@@ -22,22 +22,22 @@ import TheHeader from "../components/Once/TheHeader";
 import LastUpdateTime from "../components/Once/LastUpdateTime";
 
 export default {
-  name: "Home",
-  components: {
-    ClassesTable,
-    ScheduleTable,
-    SelectedClassesCode,
-    Summary,
-    ButtonBackToTop,
-    TheFooter,
-    TheHeader,
-    LastUpdateTime
-  },
+	name: "Home",
+	components: {
+		ClassesTable,
+		ScheduleTable,
+		SelectedClassesCode,
+		Summary,
+		ButtonBackToTop,
+		TheFooter,
+		TheHeader,
+		LastUpdateTime,
+	},
 };
 </script>
 
 <style scoped>
 #home {
-  @apply container w-full p-4 space-y-4 mx-auto;
+	@apply container w-full p-4 space-y-4 mx-auto;
 }
 </style>
