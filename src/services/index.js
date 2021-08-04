@@ -17,6 +17,7 @@ function setStoreTime() {
 }
 
 function checkIfExpired() {
+	return true
 	if (isStorageSupported) {
 		let time = localStorage.getItem(STORE_TIME);
 		if (!time) {
