@@ -66,6 +66,7 @@ export default createStore({
 		addClass(state, _class) {
 			state.selectedClasses = [...state.selectedClasses, _class];
 			let classDetail = state.classes.find((c) => c.MaLop == _class);
+			classDetail.Tiet = classDetail.Tiet.toString()
 			state.selectedClassesDetail = [
 				...state.selectedClassesDetail,
 				classDetail
