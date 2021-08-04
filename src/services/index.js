@@ -3,12 +3,12 @@ const CLASSES = "classes";
 const SELECTED_CLASSES = "selectedClasses";
 const SELECTED_CLASSES_DETAIL = "selectedClassesDetail";
 const STORE_TIME = "storeTime";
-const EXPIRE_DAYS = 30;
+// const EXPIRE_DAYS = 30;
 
-function getDiffDate(a, b) {
-	let diffTime = Math.abs(a.getTime() - b.getTime());
-	return Math.round(diffTime / (24 * 3600 * 1000));
-}
+// function getDiffDate(a, b) {
+// 	let diffTime = Math.abs(a.getTime() - b.getTime());
+// 	return Math.round(diffTime / (24 * 3600 * 1000));
+// }
 
 function setStoreTime() {
 	if (isStorageSupported) {
@@ -16,25 +16,24 @@ function setStoreTime() {
 	}
 }
 
-function checkIfExpired() {
-	return true
-	if (isStorageSupported) {
-		let time = localStorage.getItem(STORE_TIME);
-		if (!time) {
-			localStorage.clear();
-			return true;
-		}
-		let currentTime = new Date();
-		let storedTime = new Date(parseInt(time, 10));
-		let diffDate = getDiffDate(storedTime, currentTime);
-		if (diffDate > EXPIRE_DAYS) {
-			localStorage.clear();
-			return true;
-		}
-		return false;
-	}
-	return false;
-}
+// function checkIfExpired() {
+// 	if (isStorageSupported) {
+// 		let time = localStorage.getItem(STORE_TIME);
+// 		if (!time) {
+// 			localStorage.clear();
+// 			return true;
+// 		}
+// 		let currentTime = new Date();
+// 		let storedTime = new Date(parseInt(time, 10));
+// 		let diffDate = getDiffDate(storedTime, currentTime);
+// 		if (diffDate > EXPIRE_DAYS) {
+// 			localStorage.clear();
+// 			return true;
+// 		}
+// 		return false;
+// 	}
+// 	return false;
+// }
 
 function storeClasses(classes) {
 	if (isStorageSupported) {
@@ -61,18 +60,18 @@ function storeSelectedClassesDetail(classesDetail) {
 function retrieveClasses() {
 	let classes = null;
 	if (isStorageSupported) {
-		if (!checkIfExpired()) {
-			let data = localStorage.getItem(CLASSES);
-			if (data) {
-				classes = JSON.parse(data);
-			} else {
-				classes = require("../assets/TKB.json");
-				storeClasses(classes);
-			}
-		} else {
-			classes = require("../assets/TKB.json");
-			storeClasses(classes);
-		}
+		// if (!checkIfExpired()) {
+		// 	let data = localStorage.getItem(CLASSES);
+		// 	if (data) {
+		// 		classes = JSON.parse(data);
+		// 	} else {
+		// 		classes = require("../assets/TKB.json");
+		// 		storeClasses(classes);
+		// 	}
+		// } else {
+		classes = require("../assets/TKB.json");
+		storeClasses(classes);
+		// }
 	} else {
 		classes = require("../assets/TKB.json");
 	}
