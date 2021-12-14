@@ -31,7 +31,7 @@ export default {
     ButtonBackToTop,
     TheFooter,
     TheHeader,
-    LastUpdateTime
+    LastUpdateTime,
   },
 };
 </script>
