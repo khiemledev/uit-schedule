@@ -1,6 +1,6 @@
 <template>
     <div class="last-update-time">
-        Thời khóa biểu dự kiến cập nhật lần cuối lúc 20:50, ngày 06/08/2021
+        Thời khóa biểu dự kiến cập nhật lần cuối lúc 14:33, ngày 14/12/2021
     </div>
 </template>
 
